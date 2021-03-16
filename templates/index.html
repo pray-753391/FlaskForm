@@ -1,0 +1,16 @@
+{# 指的是继承了base.html #}
+{% extends 'base.html' %}
+{# 调用宏 导入 #}
+{% from 'macros.html' import qux,static_file %}
+{# 对flask里的content块进行渲染 #}
+{% block content %}
+{% set name= baz %}
+<h1>Template</h1>
+<ul>
+    <li><a href="{{ url_for('watchlist') }}">Watchlist</a></li>
+    <li>Filter: {{ foo|musical }}</li>
+    <li>Global: {{ bar() }}</li>
+    <li>Test: {% if name is baz %}I am baz.{% endif %}</li>
+    <li>Macro: {{ qux(amount=5) }}</li>
+</ul>
+{% endblock %}

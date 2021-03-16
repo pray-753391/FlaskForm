@@ -1,0 +1,47 @@
+{# 这个基模板中，创建了六个块，
+head、title、styles、 content、footer和scripts，分别用来划分不同的代码
+其中，head块表示 <head>标签的内容，
+title表示<title>标签的内容，
+content块表示页面主体内容，
+footer表示页脚部分，
+styles块和scripts块，则分别用来包含CSS文件和JavaScript文件引用链接或页内的CSS和JavaScript代码#}
+{% from 'macros.html' import static_file,qux %}
+<!DOCTYPE html>
+<html>
+<head>
+    {# 模板中由”{% block block_name %}”和”{% endblock %}”所包括的语句块，
+    将会替换父模板中同样由”{% block block_name %}”和”{% endblock %}”所包括的语句块。 #}
+	{% block head %}
+		<meta charset="utf-8">
+		<title>{% block title %}Template - HelloFlask{% endblock %}</title>
+	   {% block styles %}
+           {{ static_file('css', 'css/bootstrap.css') }}
+           {{ static_file('css', 'css/bootstrap.grid.css')}}
+           {{ static_file('css', 'css/bootstrap.reboot.css')}}
+           {{ static_file('css', 'style.css')}}
+       {% endblock %}
+	{% endblock %}
+</head>
+<body>
+<nav>
+    {# <ul> 标签定义无序列表。 #}
+	<ul><li><a href="{{ url_for('index') }}">Home</a></li></ul>
+</nav>
+<main>
+	{% for message in get_flashed_messages() %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}
+	{% block content %}{% endblock %}
+</main>
+<footer>
+	{% block footer %}
+	 ...
+	{% endblock %}
+</footer>
+{% block scripts %}
+   {{ static_file('js', 'bootstrap.js')}}
+   {{ static_file('js', 'bootstrap.bundle.js')}}
+{% endblock %}
+
+</body>
+</html>
