@@ -48,6 +48,10 @@ def just_flash():
 	flash('I am flash,who is looking for me')
 	return 'aaaa'
 
+@app.route('/html')
+def pure():
+	return render_template('pure.html')
+
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('errors/404.html'),404

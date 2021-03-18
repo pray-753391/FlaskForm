@@ -1,0 +1,30 @@
+{% from 'macros.html' import static_file %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	   {% block styles %}
+           {{ static_file('css', 'css/bootstrap.css') }}
+           {{ static_file('css', 'css/bootstrap.grid.css')}}
+           {{ static_file('css', 'css/bootstrap.reboot.css')}}
+           {{ static_file('css', 'css/style.css')}}
+       {% endblock %}
+       {% block scripts %}
+           {{ static_file('js', 'bootstrap.js')}}
+           {{ static_file('js', 'bootstrap.bundle.js')}}
+       {% endblock %}
+<form method="post">
+	<label for="username">Username</label><br>
+	<input type="text" name="username" placeholder="Héctor Rivera"><br>
+	<label for="password">Password</label><br>
+	<input type="password" name="password" placeholder="19001130"><br>
+	<input id="remember" name="remember" type="checkbox" checked>
+	<label for="remember"><small>Remember me</small></label><br>
+	<input type="submit" name="submit" value="Log in">
+</form>
+</body>
+</html>
