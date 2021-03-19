@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, redirect, url_for
 from flask import Markup
+from form import LoginForm
 app = Flask(__name__)
 app.secret_key = 'secret string'
 user = {
@@ -51,6 +52,16 @@ def just_flash():
 @app.route('/html')
 def pure():
 	return render_template('pure.html')
+
+@app.route('/basic')
+def basic():
+	form = LoginForm()
+	return render_template('basic.html',form=form)
+
+@app.route('/bootstrap')
+def bootstrapForm():
+	form = LoginForm()
+	return render_template('bootstrap.html',form=form)
 
 @app.errorhandler(404)
 def page_not_found(e):

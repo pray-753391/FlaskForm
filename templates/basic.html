@@ -1,0 +1,8 @@
+<form method="post">
+    <!-- 这用来渲染CSRF令牌的隐藏字段-->
+    {{ form.csrf_token }}
+    {{ form.username.label }}{{ form.username}}<br>
+    {{ form.password.label }}{{ form.password }}<br>
+    {{ form.remember }}{{ form.remember.label }}<br>
+    {{ form.submit }}<br>
+</form>
