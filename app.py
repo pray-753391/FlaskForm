@@ -53,9 +53,13 @@ def just_flash():
 def pure():
 	return render_template('pure.html')
 
-@app.route('/basic')
+@app.route('/basic',methods=['GET','POST'])
 def basic():
 	form = LoginForm()
+	if form.validate_on_submit():
+		username = form.username.data
+		flash('Welcome %s' %username)
+		return redirect(url_for('index'))
 	return render_template('basic.html',form=form)
 
 @app.route('/bootstrap')

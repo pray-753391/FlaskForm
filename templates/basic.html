@@ -1,8 +1,21 @@
+{% from 'macros.html' import static_file%}
+{{ static_file('css', 'css/bootstrap.css') }}
+{{ static_file('css', 'css/bootstrap.grid.css')}}
+{{ static_file('css', 'css/bootstrap.reboot.css')}}
+{{ static_file('css', 'css/style.css')}}
+{{ static_file('js', 'bootstrap.js')}}
+{{ static_file('js', 'bootstrap.bundle.js')}}
 <form method="post">
     <!-- 这用来渲染CSRF令牌的隐藏字段-->
     {{ form.csrf_token }}
     {{ form.username.label }}{{ form.username}}<br>
+    {% for message in form.username.errors %}
+        <small class="error">{{ message }}</small><br> {# small是小号字体效果 br是换行符 #}
+    {% endfor %}
     {{ form.password.label }}{{ form.password }}<br>
+    {% for message in form.password.errors %}
+        <small class="error">{{ message }}</small><br>
+    {% endfor %}
     {{ form.remember }}{{ form.remember.label }}<br>
     {{ form.submit }}<br>
 </form>
