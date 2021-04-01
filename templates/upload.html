@@ -1,0 +1,21 @@
+{% from 'macros.html' import static_file,form_field%}
+{{ static_file('css', 'css/bootstrap.css') }}
+{{ static_file('css', 'css/bootstrap.grid.css')}}
+{{ static_file('css', 'css/bootstrap.reboot.css')}}
+{{ static_file('css', 'css/style.css')}}
+{{ static_file('js', 'bootstrap.js')}}
+{{ static_file('js', 'bootstrap.bundle.js')}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    {{ form_field(form.photo) }}
+    {{ form.submit }}
+</form>>
+</body>
+</html>

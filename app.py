@@ -1,8 +1,13 @@
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, send_from_directory
 from flask import Markup
-from form import LoginForm
+from flask_ckeditor import random_filename
+
+from form import LoginForm,UploadForm
+import os
 app = Flask(__name__)
 app.secret_key = 'secret string'
+#要在项目根目录下手动创建uploads文件夹，用于保存上传后的文件
+app.config['UPLOAD_PATH'] = os.path.join(app.root_path,'uploads')
 user = {
 	'username': 'Grey Li',
 	'bio': 'A boy who loves movies and music.',
@@ -67,6 +72,24 @@ def bootstrapForm():
 	form = LoginForm()
 	return render_template('bootstrap.html',form=form)
 
+@app.route('/upload', methods=['GET','POST'])
+def upload():
+	form = UploadForm()
+	if form.validate_on_submit():
+		f = form.photo.data
+		#生成随机文件名 我们调用这个函数来获取随机文件名，传入原文 件名作为参数
+		filename = random_filename(f.filename)
+		#保存文件
+		f.save(os.path.join(app.config['UPLOAD_PATH'],filename))
+		flash('Upload success')
+		#session['filenames'] = [filename]
+		#return redirect(url_for('show_images'))
+		return redirect(url_for('watchlist'))
+	return  render_template('upload.html',form=form)
+@app.route('/uploads/<path:filename>')
+#传入参数filename
+def showfile(filename):
+	return send_from_directory(app.config['UPLOAD_PATH'], filename)
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('errors/404.html'),404
